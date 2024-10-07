@@ -1,0 +1,9 @@
+@if (users && users.length > 0) {
+    <div class="flex gap-4 flex-wrap p-4 justify-center">
+        @for (user of users; track user.id) {
+            <crx-user-card [user]="user" />
+        }
+    </div>
+} @else {
+    <p class="text-center">No users available.</p>
+}

@@ -1,0 +1,105 @@
+@if (loading) {
+    <div class="w-full h-full flex justify-center items-center">
+        <div class="card shadow-xl skeleton border border-gray-500 h-[41rem] w-[32rem]"></div>
+    </div>
+} @else if (user) {
+    <div class="w-full h-full flex justify-center items-center" data-test-id="user-profile">
+        <div class="card shadow-xl bg-base-200 border border-gray-500 p-2 md:p-8 flex flex-col items-start relative">
+            <div class="card-body relative">
+                <div class="flex justify-between">
+                    <button (click)="handleBackButton()" class="btn btn-sm"><crx-back-arrow-icon />back</button>
+                    <button (click)="toggleFavorite($event, user.id)" class="btn btn-ghost h-fit min-h-fit w-fit p-1">
+                        @if (!isFavorite(user.id)) {
+                            <crx-favorite-off-icon />
+                        } @else {
+                            <crx-favorite-on-icon />
+                        }
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-6 m-6">
+                    <div class="avatar">
+                        <div class="mask mask-circle h-10 w-10">
+                            <img [src]="getAvatarForUser(user.name)" alt="Avatar Tailwind CSS Component" />
+                        </div>
+                    </div>
+                    <span class="font-bold text-2xl">{{ user.name }}</span>
+                </div>
+                <div class="flex flex-col gap-2 max-w-96">
+                    <!-- Username -->
+                    <ng-container *ngTemplateOutlet="infoTemplate; context: { icon: usernameIcon, label: 'Username', value: user.username }" />
+
+                    <!-- Company Name -->
+                    <ng-container *ngTemplateOutlet="infoTemplate; context: { icon: companyIcon, label: 'Company Name', value: user.company.name }" />
+
+                    <!-- Catchphrase -->
+                    <ng-container
+                        *ngTemplateOutlet="infoTemplate; context: { icon: catchphraseIcon, label: 'Catchphrase', value: user.company.catchPhrase }"
+                    />
+
+                    <!-- Phone Number -->
+                    <ng-container *ngTemplateOutlet="infoTemplate; context: { icon: phoneIcon, label: 'Phone Number', value: user.phone }" />
+
+                    <!-- Email -->
+                    <ng-container *ngTemplateOutlet="infoTemplate; context: { icon: emailIcon, label: 'Email', value: user.email }" />
+
+                    <!-- Website -->
+                    <div class="grid grid-cols-2 items-start">
+                        <div class="flex gap-2 font-semibold items-center">
+                            <crx-website-icon />
+                            Website
+                        </div>
+                        <a class="link link-info" href="formatWebsite(user.website)" target="_blank">{{ formatWebsite(user.website) }}</a>
+                    </div>
+
+                    <!-- Address -->
+                    <ng-container
+                        *ngTemplateOutlet="infoTemplate; context: { icon: pinIcon, label: 'Address', value: formatAddress(user.address) }"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+} @else {
+    <p>User not found.</p>
+}
+
+<ng-template #infoTemplate let-icon="icon" let-label="label" let-value="value">
+    <div class="grid grid-cols-2 items-start">
+        <div class="flex gap-2 font-semibold items-center">
+            @if (icon) {
+                <ng-container *ngTemplateOutlet="icon" />
+            }
+            {{ label }}
+        </div>
+
+        <p>{{ value }}</p>
+    </div>
+</ng-template>
+
+<!-- Icon Templates -->
+<ng-template #companyIcon>
+    <crx-company-icon />
+</ng-template>
+
+<ng-template #phoneIcon>
+    <crx-phone-icon />
+</ng-template>
+
+<ng-template #emailIcon>
+    <crx-email-icon />
+</ng-template>
+
+<ng-template #usernameIcon>
+    <crx-user-icon />
+</ng-template>
+
+<ng-template #catchphraseIcon>
+    <crx-phrase-icon />
+</ng-template>
+
+<ng-template #websiteIcon />
+
+<ng-template #pinIcon>
+    <crx-pin-icon />
+</ng-template>

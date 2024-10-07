@@ -1,0 +1,33 @@
+@if (user) {
+    <div
+        (click)="handleCardClick(user.id)"
+        (keydown)="onKeyDown($event)"
+        class="card bg-base-200 border border-neutral-content rounded-2xl shadow-sm hover:shadow-lg w-80 flex flex-col gap-2 cursor-pointer"
+        tabindex="0"
+    >
+        <button (click)="toggleFavorite($event, user.id)" class="btn btn-ghost absolute h-fit min-h-fit w-fit p-1 right-3 top-3">
+            @if (!isFavorite(user.id)) {
+                <crx-favorite-off-icon />
+            } @else {
+                <crx-favorite-on-icon />
+            }
+        </button>
+
+        <div class="card-body">
+            <div class="card-title flex flex-col items-center gap-3">
+                <div class="avatar">
+                    <div class="mask h-10 w-10">
+                        <img [src]="getAvatarForUser(user.name)" alt="Avatar Tailwind CSS Component" />
+                    </div>
+                </div>
+                <span class="font-bold">{{ user.name }}</span>
+                <span class="font-normal">{{ user.company.name }}</span>
+            </div>
+            <div class="flex flex-col gap-2 mt-2">
+                <div class="flex"><crx-phone-icon />: {{ getPhoneNumber(user.phone) }}</div>
+                <div class="flex"><crx-email-icon />: {{ user.email }}</div>
+                <div class="flex"><crx-pin-icon />: {{ getSimpleAddress(user.address) }}</div>
+            </div>
+        </div>
+    </div>
+}

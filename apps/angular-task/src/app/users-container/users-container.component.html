@@ -1,0 +1,26 @@
+<div class="drawer drawer-end">
+    <input class="drawer-toggle" drawerCheckbox id="drawer-checkbox" type="checkbox" />
+    <div class="drawer-content">
+        <h1 class="text-center">Contacts</h1>
+        <div class="flex justify-center flex-wrap my-4 gap-4">
+            <crx-search-bar (searchValue)="handleFilterUserByName($event)" />
+            <label class="drawer-button btn btn-accent" for="drawer-checkbox">Filters</label>
+            <select (change)="handleSortChange($event)" class="select w-fit">
+                <option disabled selected>Sort by</option>
+                <option value="nameAsc">Name Asc</option>
+                <option value="nameDes">Name Des</option>
+                <option value="companyAsc">Company Asc</option>
+                <option value="companyDes">Company Des</option>
+            </select>
+        </div>
+        <crx-users />
+    </div>
+
+    <div class="drawer-side">
+        <label aria-label="close sidebar" class="drawer-overlay" for="drawer-checkbox"></label>
+        <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            <crx-filter-drawer (submitFilters)="closeDrawer()" />
+        </div>
+    </div>
+    >
+</div>

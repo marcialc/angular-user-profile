@@ -1,0 +1,16 @@
+<label class="input input-bordered flex items-center gap-2">
+    <crx-search-icon />
+    <input #searchInput (input)="onInputChange($event)" [value]="value" class="grow" data-test-id="search-input" placeholder="Search" type="text" />
+    <div class="flex gap-1 -mr-2">
+        <kbd class="hidden md:flex kbd kbd-sm pointer-events-none opacity-50"> ⌘ </kbd>
+        <kbd class="hidden md:flex kbd kbd-sm pointer-events-none opacity-50"> K </kbd>
+        <button
+            (click)="handleClearSearch()"
+            [ngClass]="{ visible: value, invisible: !value }"
+            class="opacity-75 rounded-full p-1"
+            data-test-id="clear-btn"
+        >
+            <crx-close-icon fill="darkblue" size="16" />
+        </button>
+    </div>
+</label>
